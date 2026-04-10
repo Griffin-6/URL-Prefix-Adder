@@ -1,0 +1,215 @@
+/* ==================== 工具栏容器 ==================== */
+.floating-toolbar {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;      /* 从上到下排列 */
+    align-items: flex-end;
+    gap: 12px;
+    z-index: 10000;
+}
+
+/* 功能按钮容器（默认隐藏） */
+.toolbar-buttons {
+    display: none;
+    flex-direction: column;      /* 内部按钮也从上到下排列 */
+    gap: 12px;
+}
+
+/* 展开时显示功能按钮 */
+.floating-toolbar.expanded .toolbar-buttons {
+    display: flex;
+}
+
+/* 每个工具项 */
+.toolbar-item {
+    width: 48px;
+    height: 48px;
+    background: rgba(30, 30, 40, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    /* 加粗加亮边框：3px，更高不透明度 */
+    border: 3px solid rgba(255, 215, 0, 0.9);
+    position: relative;
+}
+
+/* 图标符号样式（通用） */
+.toolbar-item .icon-symbol,
+.toolbar-item .toggle-symbol {
+    font-size: 24px;
+    line-height: 1;
+    /* 增加文字阴影，让符号更突出 */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 4px #000;
+}
+
+/* 专门增强展开/收起符号：更粗、发光更强 */
+.toolbar-item .toggle-symbol {
+    font-size: 28px;              /* 稍微调大一点 */
+    font-weight: bold;             /* 对部分符号有效 */
+    text-shadow: 0 0 12px #FFD700, 0 0 6px #FFA500;
+    filter: drop-shadow(0 0 3px gold);
+}
+
+/* 悬停效果增强：边框变纯金色，增加外发光 */
+.toolbar-item:hover {
+    background: rgba(50, 50, 70, 0.95);
+    transform: scale(1.1);
+    border-color: #FFD700;
+    box-shadow: 0 0 15px #FFD700, 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* 鼠标按下时的效果 */
+.toolbar-item:active {
+    transform: scale(0.95);
+    border-color: #FFA500;
+    box-shadow: 0 0 20px #FFA500;
+}
+
+/* 悬停提示 */
+.toolbar-item .tooltip {
+    position: absolute;
+    right: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.8);
+    color: #FFD700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border: 1px solid #FFD700;
+}
+.toolbar-item:hover .tooltip {
+    opacity: 1;
+}
+
+/* ==================== 浮层样式 ==================== */
+.toolbar-popup {
+    position: fixed;
+    width: 260px;
+    max-height: 350px;
+    background: rgba(25, 25, 35, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    border: 1px solid rgba(255,215,0,0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 12px 0;
+    color: #eee;
+    font-size: 14px;
+    overflow-y: auto;
+    z-index: 10001;
+}
+
+.popup-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    transition: background 0.15s;
+}
+.popup-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+.popup-title {
+    font-weight: 600;
+    color: #FFD700;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.popup-url {
+    font-size: 12px;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.delete-fav {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #ff6b6b;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.delete-fav:hover {
+    background: rgba(255,255,255,0.1);
+    color: #ff4444;
+}
+.popup-empty {
+    text-align: center;
+    padding: 30px 15px;
+    color: #888;
+}
+.popup-footer {
+    padding: 12px 15px;
+    text-align: center;
+}
+.popup-footer button {
+    background: transparent;
+    border: 1px solid #FFD700;
+    color: #FFD700;
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.popup-footer button:hover {
+    background: #FFD700;
+    color: #000;
+}
+
+/* ==================== 反馈消息 ==================== */
+.floating-feedback {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.9);
+    color: #FFD700;
+    padding: 10px 20px;
+    border-radius: 40px;
+    z-index: 10001;
+    font-size: 14px;
+    border: 1px solid #FFD700;
+    animation: fadeOut 1.5s forwards;
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+body.light ::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
